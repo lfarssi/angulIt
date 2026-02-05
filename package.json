@@ -1,0 +1,11 @@
+{
+  "name": "angul-it",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Project skeleton for the Angul-It Angular CAPTCHA app",
+  "scripts": {
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test"
+  }
+}
