@@ -1,1 +1,15 @@
-<!-- Captcha component template placeholder -->
+<h2>Captcha</h2>
+
+<p>Stage {{ currentIndex + 1 }} / {{ stages.length }}</p>
+<h3>{{ stage?.title }}</h3>
+<p *ngIf="stage?.hint">{{ stage?.hint }}</p>
+
+<!-- Placeholder UI: implement real UI per stage type -->
+<div style="margin: 16px 0; padding: 12px; border: 1px dashed #999;">
+  <p>TODO: render stage UI for type: <b>{{ stage?.type }}</b></p>
+</div>
+
+<div style="display:flex; gap:12px;">
+  <button (click)="prev()" [disabled]="currentIndex === 0">Prev</button>
+  <button (click)="next()">Next</button>
+</div>

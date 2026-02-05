@@ -1,1 +1,0 @@
-// Result component test placeholder.

@@ -1,1 +1,0 @@
-// Shared challenge model placeholder.
