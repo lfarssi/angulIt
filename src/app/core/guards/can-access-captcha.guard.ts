@@ -6,7 +6,6 @@ export const canAccessCaptchaGuard: CanActivateFn = () => {
   const state = inject(CaptchaStateService);
   const router = inject(Router);
 
-  // If already completed, sending user to results is nicer UX
   if (state.isCompleted()) return router.createUrlTree(['/result']);
   return true;
 };

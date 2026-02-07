@@ -1,4 +1,15 @@
 <h2>Results</h2>
 <p>Session completed ✅</p>
 
+<p><b>Score:</b> {{ score.correct }} / {{ score.total }}</p>
+
+<ul>
+  <li *ngFor="let st of session.stages">
+    <b>{{ st.title }}</b>
+    —
+    <span>{{ statusLabel(st.id) }}</span>
+  </li>
+</ul>
+
+
 <button (click)="restart()">Restart Challenge</button>
