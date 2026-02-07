@@ -5,25 +5,23 @@ export interface CaptchaStageBase {
   type: CaptchaStageType;
   title: string;
   hint?: string;
-  points?: number; // optional scoring
 }
 
 export interface ImageSelectStage extends CaptchaStageBase {
   type: 'image-select';
-  images: { id: string; label: string; url: string }[];
-  // rule: user must select all images where label matches targetLabel
-  targetLabel: string; // e.g. "cat"
+  images: { id: string; label: 'cat' | 'other'; url: string }[];
+  targetLabel: 'cat';
 }
 
 export interface MathStage extends CaptchaStageBase {
   type: 'math';
-  question: string;     // e.g. "7 + 5"
+  question: string;
   answer: number;
 }
 
 export interface TextStage extends CaptchaStageBase {
   type: 'text';
-  prompt: string;       // e.g. "Type: ANGUL-IT"
+  prompt: string;
   expected: string;
   caseSensitive?: boolean;
 }
@@ -33,13 +31,12 @@ export type CaptchaStage = ImageSelectStage | MathStage | TextStage;
 export interface StageResult {
   stageId: string;
   correct: boolean;
-  userAnswer: any;
-  timeMs?: number;
+  userAnswer: string | string[]; 
 }
 
 export interface CaptchaSessionState {
   sessionId: string;
-  startedAt: string; // ISO
+  startedAt: string;
   currentIndex: number;
   stages: CaptchaStage[];
   results: StageResult[];

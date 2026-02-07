@@ -5,13 +5,12 @@ import { CaptchaSessionState, StageResult } from '../models/captcha.models';
 
 const KEY = 'angulit.session.v1';
 
-function uid() {
-  return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(16).slice(2);
-}
+const newId = () =>
+  crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(16).slice(2);
 
 @Injectable({ providedIn: 'root' })
 export class CaptchaStateService {
-  private state: CaptchaSessionState | null = null;
+  private state: CaptchaSessionState | null;
 
   constructor(
     private store: LocalStorageService,
@@ -27,30 +26,21 @@ export class CaptchaStateService {
 
   startNewSession(): CaptchaSessionState {
     this.state = {
-      sessionId: uid(),
+      sessionId: newId(),
       startedAt: new Date().toISOString(),
       currentIndex: 0,
       stages: this.engine.buildStages(),
       results: [],
       completed: false,
     };
-    this.persist();
+    this.save();
     return this.state;
-  }
-
-  persist(): void {
-    if (this.state) this.store.set(KEY, this.state);
-  }
-
-  clear(): void {
-    this.state = null;
-    this.store.remove(KEY);
   }
 
   setCurrentIndex(i: number): void {
     const s = this.getState();
     s.currentIndex = Math.max(0, Math.min(i, s.stages.length - 1));
-    this.persist();
+    this.save();
   }
 
   upsertResult(result: StageResult): void {
@@ -58,16 +48,20 @@ export class CaptchaStateService {
     const idx = s.results.findIndex(r => r.stageId === result.stageId);
     if (idx >= 0) s.results[idx] = result;
     else s.results.push(result);
-    this.persist();
+    this.save();
   }
 
   markCompleted(): void {
     const s = this.getState();
     s.completed = true;
-    this.persist();
+    this.save();
   }
 
   isCompleted(): boolean {
     return this.getState().completed;
+  }
+
+  private save(): void {
+    if (this.state) this.store.set(KEY, this.state);
   }
 }

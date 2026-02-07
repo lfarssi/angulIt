@@ -6,6 +6,5 @@ export const canAccessCaptchaGuard: CanActivateFn = () => {
   const state = inject(CaptchaStateService);
   const router = inject(Router);
 
-  if (state.isCompleted()) return router.createUrlTree(['/result']);
-  return true;
+  return state.isCompleted() ? router.createUrlTree(['/result']) : true;
 };
