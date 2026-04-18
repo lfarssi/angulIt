@@ -10,10 +10,12 @@
     </div>
 
     <ul class="list">
-      <li *ngFor="let st of session.stages">
-        <span><b>{{ st.title }}</b></span>
-        <span>{{ statusLabel(st.id) }}</span>
-      </li>
+      @for (st of session.stages; track st.id){
+        <li>
+          <span><b>{{ st.title }}</b></span>
+          <span>{{ statusLabel(st.id) }}</span>
+        </li>
+      }
     </ul>
 
     <div class="actions">
