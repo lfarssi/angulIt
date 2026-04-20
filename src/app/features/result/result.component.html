@@ -1,25 +1,29 @@
-<div class="page">
-  <div class="card">
-    <div class="header">
+<div class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+    <div class="flex justify-between items-start mb-6">
       <div>
-        <h2>Results</h2>
-        <p class="muted">Session completed ✅</p>
-        <p class="muted"><b>Score:</b> {{ score.correct }} / {{ score.total }}</p>
+        <h2 class="text-2xl font-bold text-gray-900">Results</h2>
+        <p class="text-gray-500 text-sm mt-1">Session completed ✅</p>
+        <p class="text-gray-700 mt-2"><span class="font-semibold">Score:</span> {{ score.correct }} / {{ score.total }}</p>
       </div>
-      <span class="badge">{{ score.correct }}/{{ score.total }}</span>
+      <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+        {{ score.correct }}/{{ score.total }}
+      </span>
     </div>
 
-    <ul class="list">
+    <ul class="divide-y divide-gray-200 border-t border-b border-gray-200 my-6">
       @for (st of session.stages; track st.id){
-        <li>
-          <span><b>{{ st.title }}</b></span>
-          <span>{{ statusLabel(st.id) }}</span>
+        <li class="py-3 flex justify-between items-center">
+          <span class="font-medium text-gray-900">{{ st.title }}</span>
+          <span class="text-sm text-gray-600 font-medium">{{ statusLabel(st.id) }}</span>
         </li>
       }
     </ul>
 
-    <div class="actions">
-      <button class="btn btn-primary" (click)="restart()">Restart Challenge</button>
+    <div class="flex justify-end mt-6">
+      <button class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors w-full sm:w-auto" (click)="restart()">
+        Restart Challenge
+      </button>
     </div>
   </div>
 </div>
